@@ -7,14 +7,164 @@
     <title>05 - Form</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .modal-label {
+        padding: 5px;
+        display: inline-block;
+        font-weight: bold;
+      }
+      .modal-value {
+        display: inline-block;
+      }
+    </style>
+
     <script defer src="05-form.js"></script>
   </head>
-  <body>
-    <main>
-      <form>
-        <h1>Exercise 05 - Form</h1>
+  <body class="bg-dark p-4">
+    <main
+      class="container bg-white rounded-3 p-4 my-5 mx-auto d-flex"
+      style="
+        max-width: 500px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      "
+    >
+      <form id="userForm">
+        <h1 class="text-center mb-4">Exercise 05 - Form</h1>
+        <div class="mb-3">
+          <label for="fullName" class="form-label fw-bold">Full Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            name="Full Name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label fw-bold">Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="Email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="registrationStatus" class="form-label fw-bold"
+            >Registration Status:</label
+          >
+          <select
+            class="form-select"
+            name="Registration Status"
+            id="registrationStatus"
+            required
+          >
+            <option selected disabled value="">Choose an Option</option>
+            <option value="new">New</option>
+            <option value="returning">Returning</option>
+            <option value="guest">Guest</option>
+          </select>
+        </div>
+        <fieldset class="mb-3">
+          <legend class="fw-bold" style="font-size: 1rem">
+            Have you taken any of the following courses?
+          </legend>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="programming"
+              id="courseProgramming"
+            />
+            <label class="form-check-label" for="courseProgramming">
+              Programming Languages
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="operating"
+              id="courseOperating"
+            />
+            <label class="form-check-label" for="courseOperating">
+              Operating Systems
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="fullstack"
+              id="courseFullStack"
+            />
+            <label class="form-check-label" for="courseFullStack">
+              Full Stack Web Development
+            </label>
+          </div>
+        </fieldset>
+        <div class="mb-3">
+          <label for="additionalInfo" class="form-label fw-bold"
+            >Anything else?</label
+          >
+          <textarea
+            class="form-control"
+            id="additionalInfo"
+            name="Additional Info"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <div class="d-flex w-100 mb-3">
+          <button type="submit" class="btn btn-primary w-100 me-1">
+            Submit
+          </button>
+          <button type="reset" class="btn btn-secondary w-100 ms-1">
+            Reset
+          </button>
+        </div>
       </form>
     </main>
+
+    <div
+      class="modal fade"
+      id="submitModal"
+      tabindex="-1"
+      aria-labelledby="modalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="modalLabel">Form Submission Data</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
