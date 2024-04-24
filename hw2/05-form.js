@@ -1,76 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Get the form and modal elements from the document
   const form = document.getElementById("userForm");
   const modalBody = document.querySelector(".modal-body");
-  // Initialize the Bootstrap modal component
   const submitModal = new bootstrap.Modal(
     document.getElementById("submitModal")
   );
 
-  // Define the event handler for the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    modalBody.innerHTML = "";
 
-    // Exit the function if the form is not valid
     if (!form.checkValidity()) {
       form.classList.add("was-validated");
       return;
     }
 
-    // Clear the modal body content for new input
-    modalBody.innerHTML = "";
+    // Array to store the names of selected courses
+    let selectedCourses = [];
 
-    // Prepare to collect names of courses if any checkboxes are checked
-    let courses = [];
-
-    // Iterate through each form element
+    // Iterate over all form elements
     Array.from(form.elements).forEach((element) => {
-      if (!element.name) return;
+      // Skip elements without a name or of type submit or checkbox
+      if (
+        !element.name ||
+        element.type === "submit" ||
+        element.type === "checkbox"
+      )
+        return;
 
-      // Create a div for each form field to hold the label and value
-      const div = document.createElement("div");
-      const strong = document.createElement("strong");
-      const spanLabel = document.createElement("span");
-      spanLabel.className = "modal-label";
-      spanLabel.textContent = `${element.name}: `;
-      strong.appendChild(spanLabel);
+      // Create a div for each input's label and value
+      const entryDiv = document.createElement("div");
+      const labelSpan = document.createElement("span");
+      labelSpan.className = "modal-label";
+      labelSpan.textContent = `${element.name}: `;
+      entryDiv.appendChild(labelSpan);
 
-      // Create a span for the value, only if it's not a checkbox
-      if (element.type !== "checkbox") {
-        const spanValue = document.createElement("span");
-        spanValue.className = "modal-value";
-        spanValue.textContent = element.value; // Use textContent for secure text insertion
-        strong.appendChild(spanValue);
-        div.appendChild(strong);
-        modalBody.appendChild(div);
-      } else if (element.checked) {
-        courses.push(element.nextElementSibling.textContent);
+      const valueSpan = document.createElement("span");
+      valueSpan.className = "modal-value";
+      valueSpan.textContent = element.value;
+      entryDiv.appendChild(valueSpan);
+
+      modalBody.appendChild(entryDiv);
+    });
+
+    // Separate loop for checkboxes to ensure they are added in order at the end
+    form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      if (checkbox.checked) {
+        selectedCourses.push(checkbox.nextElementSibling.textContent);
       }
     });
 
-    // Append course information if any checkboxes were checked
-    if (courses.length > 0) {
-      const div = document.createElement("div");
-      const strong = document.createElement("strong");
-      const spanLabel = document.createElement("span");
-      spanLabel.className = "modal-label";
-      spanLabel.textContent = "Courses Taken: ";
-      strong.appendChild(spanLabel);
+    // Add the 'Courses Taken' section if there are any selected courses
+    if (selectedCourses.length > 0) {
+      const coursesDiv = document.createElement("div");
+      const coursesLabelSpan = document.createElement("span");
+      coursesLabelSpan.className = "modal-label";
+      coursesLabelSpan.textContent = "Courses Taken: ";
+      coursesDiv.appendChild(coursesLabelSpan);
 
-      const spanValue = document.createElement("span");
-      spanValue.className = "modal-value";
-      spanValue.textContent = courses.join(", "); // Join course names with a comma
-      strong.appendChild(spanValue);
-      div.appendChild(strong);
-      modalBody.appendChild(div);
+      const coursesValueSpan = document.createElement("span");
+      coursesValueSpan.className = "modal-value";
+      coursesValueSpan.textContent = selectedCourses.join(", ");
+      coursesDiv.appendChild(coursesValueSpan);
+
+      modalBody.appendChild(coursesDiv);
     }
 
-    // Show the modal with contents filled in the form
     submitModal.show();
-    // Remove the 'was-validated' class to reset the form's validation state
     form.classList.remove("was-validated");
   };
 
-  // Attach the handleSubmit function to the form's submit event
   form.addEventListener("submit", handleSubmit);
 });
