@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const minInterval = 0.5;
     // Maximum interval in seconds
     const maxInterval = 200000000000;
-    // default to 3 seconds if no input
 
     if (
       isNaN(numericInterval) ||
