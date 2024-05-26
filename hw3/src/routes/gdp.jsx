@@ -48,13 +48,14 @@ const GDPChart = () => {
   }
 
   return (
-    <div style={{ margin: "100px", padding: "0px" }}>
-      <h1>GDP of South American Countries</h1>
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "600px" }}
-      >
-        <Pie data={chartData} options={chartOptions} />
+    <div style={{ position: "relative", paddingBottom: "350px" }}>
+      <h1 style={{ textAlign: "center" }}>GDP of South American Countries</h1>
+      <div style={{ position: "relative" }}>
+        <Pie
+          data={chartData}
+          options={chartOptions}
+          style={{ position: "absolute" }}
+        />
       </div>
     </div>
   );
