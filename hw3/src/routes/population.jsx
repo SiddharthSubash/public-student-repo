@@ -70,7 +70,7 @@ const PopulationChart = () => {
   }
 
   return (
-    <div style={{ position: "relative", paddingTop: "60px" }}>
+    <div style={{ position: "relative", paddingTop: "90px" }}>
       <h1 style={{ textAlign: "center" }}>
         Population of South American Countries
       </h1>
